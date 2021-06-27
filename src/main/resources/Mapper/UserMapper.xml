@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wordreminder.demo.mapper.UserMapper">
+    <select id="findById" resultType="com.wordreminder.demo.model.User">
+        SELECT * FROM User WHERE id = #{id}
+    </select>
+
+    <insert id="insert">
+        INSERT INTO User(name, createTime,password,remindTime,status) VALUES(#{name}, #{createTime},#{password},#{remindTime},#{status})
+    </insert>
+
+    <select id="selectAll" resultType="com.wordreminder.demo.model.User">
+        select * from User limit #{pageStart}, #{pageSize};
+    </select>
+
+    <select id="findByName" resultType="com.wordreminder.demo.model.User">
+        SELECT * FROM User WHERE name = #{name}
+    </select>
+</mapper>
