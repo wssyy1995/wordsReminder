@@ -21,28 +21,30 @@ import java.util.List;
 public class UserWordsController {
 
     @Autowired
-    private UserWordsMapper UserwordsMapper;
-
-
+    private UserWordsMapper userWordsMapper;
 
 
     @PostMapping("/add")
-    public Result add(@RequestBody UserWords userwords){
+    public ResponseJson UserWordAdd(@RequestHeader("openId") String openId, @RequestBody UserWords userWords){
+        ResponseJson responseJson = new ResponseJson();
         String createTime= dateUtil.currentDate();
         //新增单词，默认level=0 ,nextTime为30分钟后
         String nextTime=dateUtil.DateMoveSeconds(Level.ONE.delaySecond);
-        int count = UserwordsMapper.insert(userwords.getUserId(),userwords.getWord(), userwords.getDefining(),nextTime,createTime,1);
+        int count = userWordsMapper.insert(openId,userWords.getWord(), userWords.getDefining(),nextTime,createTime,userWords.getImgPath());
         if(count==1){
-            return ResultUtil.success("添加成功："+userwords.getWord());
+            responseJson.setStatus(200);
         }else{
-            return ResultUtil.fail("添加失败");
+            responseJson.setStatus(200);
+            responseJson.setErrorMsg("添加失败");
         }
+        responseJson.setStatus(200);
+        return responseJson;
 
     }
 
     @PostMapping("/del")
     public Result del(@RequestBody @Valid idReq idreq){
-        int count=UserwordsMapper.delete(idreq.getId());
+        int count=userWordsMapper.delete(idreq.getId());
         if(count==1){
             return ResultUtil.success("删除成功");
         }else {
@@ -53,7 +55,7 @@ public class UserWordsController {
     }
 
     @PostMapping("/list")
-    public Result list(@Valid @RequestBody ListReq listReq, BindingResult bindingResult){
+    public Result list(@Valid @RequestBody ListReq listReq, BindingResult bindingResult,@RequestHeader("openId") String openId){
         if (bindingResult.hasErrors()) {
             for (ObjectError object : bindingResult.getAllErrors()) {
                 System.out.println(object.getDefaultMessage());
@@ -61,7 +63,8 @@ public class UserWordsController {
             return ResultUtil.fail(bindingResult.getAllErrors().toString());
 
         }
-        List<UserWords> userwordslist= UserwordsMapper.selectAll((listReq.getPageNo()-1)* listReq.getPageSize(), listReq.getPageSize());
+        //select limit x,y : 从第x条记录开始，查询y行
+        List<UserWords> userwordslist= userWordsMapper.selectAll((listReq.getPageNo()-1)* listReq.getPageSize(), listReq.getPageSize());
         return ResultUtil.success(userwordslist);
 
     }
@@ -69,7 +72,7 @@ public class UserWordsController {
 
     @GetMapping("/{id}")
     public Result getWord(@PathVariable int id){
-        UserWords userwords =UserwordsMapper.findById(id);
+        UserWords userwords =userWordsMapper.findById(id);
         return ResultUtil.success(userwords);
     }
 

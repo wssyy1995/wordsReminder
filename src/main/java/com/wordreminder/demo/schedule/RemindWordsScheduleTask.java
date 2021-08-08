@@ -23,8 +23,9 @@ public class RemindWordsScheduleTask {
     @Autowired
     private UserWordsMapper UserwordsMapper;
 
+    /*
     @Async
-    @Scheduled(fixedDelay = 10000)  //间隔10秒
+    @Scheduled(fixedDelay = 1000000)  //间隔10秒
     public void addRemindWords() throws InterruptedException {
         String currentTime = dateUtil.currentDate();
         List<UserWords> remindWordsList=UserwordsMapper.selectRemind(currentTime);
@@ -39,5 +40,7 @@ public class RemindWordsScheduleTask {
         }
         Thread.sleep(1000 * 30);
     }
+
+     */
 
 }

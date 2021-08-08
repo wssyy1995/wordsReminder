@@ -11,7 +11,7 @@ public class ListReq {
     @Min(1)
     private int pageNo;
 
-    @Min(0)
     private int pageSize;
+
 
 }

@@ -22,6 +22,8 @@ public interface RemindWordsMapper {
 
 
     int delete(@Param("id") int id);
+    int countPending(@Param("userId") String userId);
+    int countAlready(@Param("userId") String userId);
 
 
 
