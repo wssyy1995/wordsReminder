@@ -94,13 +94,6 @@ public class wxController {
     @PostMapping("/uploadFile")
     public String uploadFile(@RequestParam("file") MultipartFile file){
         String fileName = fileService.storeFile(file);
-//        String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
-//                .path("/downloadFile/")
-//                .path(fileName)
-//                .toUriString();
-//        ResponseJson responseJson = new ResponseJson();
-//        responseJson.setStatus(200);
-//        responseJson.setData();
         return fileName;
 
     }

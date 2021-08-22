@@ -3,13 +3,12 @@ package com.wordreminder.demo.model;
 import lombok.Data;
 
 import javax.validation.constraints.Min;
+import java.util.List;
 
 @Data
 public class idReq {
 
-
-    @Min(0)
-    private int id;
+    private List<String> deleteIdList;
 
 
 }

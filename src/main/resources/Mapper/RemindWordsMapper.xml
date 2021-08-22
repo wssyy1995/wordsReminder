@@ -6,6 +6,7 @@
     <select id="findById" resultType="com.wordreminder.demo.model.RemindWords">
         SELECT * FROM RemindWords WHERE id = #{id}
     </select>
+
     <select id="findByuserId" resultType="com.wordreminder.demo.model.RemindWords">
         SELECT * FROM RemindWords WHERE userId = #{userId}
     </select>
@@ -14,13 +15,18 @@
         INSERT INTO RemindWords(userId,wordId,word,defining,testTimes,rightTimes,status) VALUES(#{userId},#{wordId},#{word},#{defining},0,0,0)
     </insert>
 
-    <select id="selectAll" resultType="com.wordreminder.demo.model.RemindWords">
-        select * from RemindWords limit #{pageStart}, #{pageSize};
+    <select id="countPending" resultType="java.lang.Integer">
+        select count(*) from RemindWords where userId=#{userId} and status !=2;
+    </select>
+    <select id="countAlready" resultType="java.lang.Integer">
+        select count(*) from RemindWords where userId=#{userId} and status =2;
     </select>
 
     <delete id="delete" >
         delete from RemindWords where id = #{id};
     </delete>
+
+
 
 
 </mapper>

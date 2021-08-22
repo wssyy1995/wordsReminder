@@ -6,16 +6,21 @@
     <select id="findById" resultType="com.wordreminder.demo.model.User">
         SELECT * FROM User WHERE id = #{id}
     </select>
+    <select id="getCreateTimeById" resultType="java.lang.String">
+        SELECT create_time FROM User WHERE id = #{id}
+    </select>
+    <select id="countById" resultType="java.lang.Integer">
+        SELECT count(*) FROM User WHERE id = #{id}
+    </select>
 
     <insert id="insert">
-        INSERT INTO User(name, createTime,password,remindTime,status) VALUES(#{name}, #{createTime},#{password},#{remindTime},#{status})
+        INSERT INTO User(id, create_time,session_key,status) VALUES(#{id}, #{create_time},#{session_key},#{status})
     </insert>
 
-    <select id="selectAll" resultType="com.wordreminder.demo.model.User">
-        select * from User limit #{pageStart}, #{pageSize};
-    </select>
 
-    <select id="findByName" resultType="com.wordreminder.demo.model.User">
-        SELECT * FROM User WHERE name = #{name}
-    </select>
+    <update id="updateUserProfile" parameterType="com.wordreminder.demo.model.UserProfile">
+        update User set user_profile= #{user_profile} where id=#{id};
+    </update>
+
+
 </mapper>

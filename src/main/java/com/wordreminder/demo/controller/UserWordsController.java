@@ -42,10 +42,33 @@ public class UserWordsController {
 
     }
 
+    @PostMapping("/update")
+    public ResponseJson UserWordUpdate(@RequestHeader("openId") String openId, @RequestBody UserWords userWords){
+        ResponseJson responseJson = new ResponseJson();
+        System.out.println("更新单词");
+        System.out.println(userWords);
+        int count = userWordsMapper.update(userWords.getId(),userWords.getWord(), userWords.getDefining(),userWords.getImgPath());
+        if(count==1){
+            responseJson.setStatus(200);
+        }else{
+            responseJson.setStatus(200);
+            responseJson.setErrorMsg("更新失败，请稍后重试");
+        }
+        responseJson.setStatus(200);
+        return responseJson;
+
+    }
+
     @PostMapping("/del")
     public Result del(@RequestBody @Valid idReq idreq){
-        int count=userWordsMapper.delete(idreq.getId());
-        if(count==1){
+        System.out.println("idreq.getDeleteIdList()");
+        System.out.println(idreq.getDeleteIdList());
+        List<String> deleteIdListd=idreq.getDeleteIdList();
+        int count=0;
+        for(String id:deleteIdListd){
+            count+=userWordsMapper.delete(Integer.parseInt(id));
+        }
+        if(count==deleteIdListd.size()){
             return ResultUtil.success("删除成功");
         }else {
             return ResultUtil.fail("删除失败");
@@ -64,7 +87,7 @@ public class UserWordsController {
 
         }
         //select limit x,y : 从第x条记录开始，查询y行
-        List<UserWords> userwordslist= userWordsMapper.selectAll((listReq.getPageNo()-1)* listReq.getPageSize(), listReq.getPageSize());
+        List<UserWords> userwordslist= userWordsMapper.selectAll((listReq.getPageNo()-1)* listReq.getPageSize(), listReq.getPageSize(),openId);
         return ResultUtil.success(userwordslist);
 
     }

@@ -8,11 +8,11 @@
     </select>
 
     <insert id="insert">
-        INSERT INTO UserWords(userId,word, defining,nextTime,createTime,level,isInRemind) VALUES(#{userId},#{word}, #{defining},#{nextTime},#{createTime},#{level},0)
+        INSERT INTO UserWords(userId,word, defining,nextTime,createTime,imgPath,level,isInRemind) VALUES(#{userId},#{word}, #{defining},#{nextTime},#{createTime},#{imgPath},1,0)
     </insert>
 
     <select id="selectAll" resultType="com.wordreminder.demo.model.UserWords">
-        select * from UserWords limit #{pageStart}, #{pageSize};
+        select id,word,defining,imgPath from UserWords where userId =#{userId} ORDER BY createTime DESC limit #{recordStart}, #{recordSize}
     </select>
 
     <select id="selectRemind" resultType="com.wordreminder.demo.model.UserWords">
@@ -26,6 +26,10 @@
     </update>
     <update id="updateIsInRem" >
         update  UserWords set isInRemind= 1  where id = #{id};
+    </update>
+
+    <update id="update" >
+        update  UserWords set word= #{word}, defining=#{defining},imgPath = #{imgPath} where id =#{id};
     </update>
 
 

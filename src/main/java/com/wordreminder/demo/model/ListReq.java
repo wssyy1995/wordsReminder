@@ -13,5 +13,8 @@ public class ListReq {
 
     private int pageSize;
 
+    //1.data：默认按日期 2.letter：按字母（暂不做）
+    private String sort;
+
 
 }

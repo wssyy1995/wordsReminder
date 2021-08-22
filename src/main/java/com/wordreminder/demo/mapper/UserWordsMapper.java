@@ -13,7 +13,7 @@ public interface UserWordsMapper {
 
     UserWords findById(@Param("id") int id);
 
-    List<UserWords> selectAll(@Param("recordStart") int pagestart , @Param("recordSize") int pagesize);
+    List<UserWords> selectAll(@Param("recordStart") int pagestart , @Param("recordSize") int pagesize,@Param("userId") String openId);
 
 
 
@@ -22,6 +22,11 @@ public interface UserWordsMapper {
                @Param("defining") String defining,
                @Param("nextTime") String nextTime,
                @Param("createTime") String createTime,
+               @Param("imgPath") String imgPath);
+
+    int update(@Param("id") int id,
+               @Param("word") String word,
+               @Param("defining") String defining,
                @Param("imgPath") String imgPath);
 
     int delete(@Param("id") int id);
