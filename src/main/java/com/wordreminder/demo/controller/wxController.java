@@ -9,6 +9,7 @@ import com.wordreminder.demo.model.ResponseJson;
 import com.wordreminder.demo.model.UserProfile;
 import com.wordreminder.demo.model.UserWords;
 import com.wordreminder.demo.service.FileService;
+import com.wordreminder.demo.util.SignUtil;
 import com.wordreminder.demo.util.dateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -21,6 +22,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.MalformedURLException;
 import java.text.ParseException;
 
