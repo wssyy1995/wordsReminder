@@ -7,7 +7,7 @@ import java.util.Arrays;
 public class SignUtil {
 
     /**
-     * 验证签名
+     * 微信小程序，验证签名专用
      * @param signature
      * @param timestamp
      * @param nonce

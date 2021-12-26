@@ -21,15 +21,16 @@
     <delete id="delete" >
         delete from UserWords where id = #{id};
     </delete>
-    <update id="updateLevel" >
-        delete from UserWords where id = #{id};
-    </update>
+
     <update id="updateIsInRem" >
         update  UserWords set isInRemind= 1  where id = #{id};
     </update>
 
     <update id="update" >
         update  UserWords set word= #{word}, defining=#{defining},imgPath = #{imgPath} where id =#{id};
+    </update>
+    <update id="upgrade" >
+        update  UserWords set level= #{level}, nextTime=#{nextTime},isInRemind = #{isInRemind} where id =#{id};
     </update>
 
 

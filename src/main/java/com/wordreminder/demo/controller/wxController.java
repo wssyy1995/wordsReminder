@@ -4,10 +4,8 @@ import com.alibaba.fastjson.JSONObject;
 import com.wordreminder.demo.mapper.RemindWordsMapper;
 import com.wordreminder.demo.mapper.UserMapper;
 import com.wordreminder.demo.mapper.UserWordsMapper;
-import com.wordreminder.demo.model.DailyInfo;
-import com.wordreminder.demo.model.ResponseJson;
-import com.wordreminder.demo.model.UserProfile;
-import com.wordreminder.demo.model.UserWords;
+import com.wordreminder.demo.model.*;
+import com.wordreminder.demo.pojo.AccessToken;
 import com.wordreminder.demo.service.FileService;
 import com.wordreminder.demo.util.SignUtil;
 import com.wordreminder.demo.util.dateUtil;
@@ -27,6 +25,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.MalformedURLException;
 import java.text.ParseException;
+import java.util.List;
 
 import static io.restassured.RestAssured.get;
 import static io.restassured.RestAssured.given;
@@ -66,8 +65,25 @@ public class wxController {
         return responseJson;
 
     }
+    @GetMapping("/UserProfile/get")
+    public ResponseJson UserInfoGet(@RequestHeader("openId") String openId){
+        System.out.println(openId);
+        ResponseJson responseJson = new ResponseJson();
+        responseJson.setStatus(200);
+        String userProfileAll=userMapper.getUserProfile(openId);
+        if(userProfileAll.equals("")){
+            responseJson.setData("");
+            return responseJson;
+        }
+        String userProfile=JSONObject.parseObject(userProfileAll).getString("userInfo");
+        System.out.println("获取用户profile: "+userProfile);
+        responseJson.setData(userProfile);
+        return responseJson;
 
-    @PostMapping("/UserInfo")
+    }
+
+
+    @PostMapping("/UserProfile/update")
     public ResponseJson UserInfo(@RequestHeader("openId") String openId, @RequestBody UserProfile userProfile){
         System.out.println(openId);
         ResponseJson responseJson = new ResponseJson();
@@ -93,6 +109,7 @@ public class wxController {
         return responseJson;
 
     }
+
 
 
     @PostMapping("/uploadFile")
@@ -123,6 +140,14 @@ public class wxController {
     }
 
 
+    @GetMapping("/getAccessToken")
+    public ResponseJson getAccessToken(){
+        ResponseJson responseJson = new ResponseJson();
+        responseJson.setStatus(200);
+        responseJson.setData(AccessToken.accessToken);
+        return responseJson;
+
+    }
 
 
 

@@ -4,6 +4,7 @@ import com.wordreminder.demo.mapper.RemindWordsMapper;
 import com.wordreminder.demo.mapper.UserWordsMapper;
 import com.wordreminder.demo.model.ListReq;
 import com.wordreminder.demo.model.RemindWords;
+import com.wordreminder.demo.model.ResponseJson;
 import com.wordreminder.demo.model.UserWords;
 import com.wordreminder.demo.util.Result;
 import com.wordreminder.demo.util.ResultUtil;
@@ -30,10 +31,22 @@ public class RemindWordsController {
         return ResultUtil.success(remindWords);
     }
 
-    @GetMapping("/{userId}")
-    public Result getRemindWordByuserId(@PathVariable int userId){
-        RemindWords remindWords =remindWordsMapper.findByuserId(userId);
-        return ResultUtil.success(remindWords);
+    @GetMapping("/getReviewList")
+    public ResponseJson getReviewList(@RequestHeader("openId") String openId){
+        List<RemindWords> remindWordsList= remindWordsMapper.getPending(openId);
+        ResponseJson responseJson = new ResponseJson();
+        responseJson.setStatus(200);
+        responseJson.setData(remindWordsList);
+        return responseJson;
+
+    }
+    @GetMapping("/update")
+    public ResponseJson updateReviewList(@RequestHeader("openId") String openId){
+        remindWordsMapper.updateReviewList(openId);
+        ResponseJson responseJson = new ResponseJson();
+        responseJson.setStatus(200);
+        return responseJson;
+
     }
 
 

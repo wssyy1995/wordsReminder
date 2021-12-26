@@ -12,6 +12,7 @@ public interface UserMapper {
 
     User findById(@Param("id") String id);
     String getCreateTimeById(@Param("id") String id);
+    String getUserProfile(@Param("id") String id);
     int countById(@Param("id") String id);
     int insert(@Param("id") String id,@Param("create_time") String createTime,@Param("session_key") String sessionKey,@Param("status") int status);
     int updateSessionKey();

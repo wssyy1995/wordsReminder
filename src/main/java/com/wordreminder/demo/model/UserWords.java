@@ -11,7 +11,7 @@ public class UserWords {
     private String imgPath;
     private String nextTime;
     private String createTime;
-//    单词等级：1-7，分别对应单词下次复习时间 30min >12h>24h>2d>4d>7d>15d
+//    单词等级：1-7，分别对应单词距离下次复习的时间间隔 30min >12h>24h>2d>4d>7d>15d
     private int level;
     private int isInRemind;
 

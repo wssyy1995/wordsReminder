@@ -35,6 +35,8 @@ public interface UserWordsMapper {
 
     int updateIsInRem(@Param("isInRemind") int isInRemind,@Param("id") int id);
 
+    int upgrade(@Param("level") int level,@Param("nextTime") String nextTime,@Param("isInRemind") int isInRemind,@Param("id") int id);
+
 
 
 }

@@ -7,8 +7,6 @@ import java.util.List;
 
 @Data
 public class idReq {
-
     private List<String> deleteIdList;
-
 
 }

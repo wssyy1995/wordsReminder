@@ -28,8 +28,8 @@ public class UserWordsController {
     public ResponseJson UserWordAdd(@RequestHeader("openId") String openId, @RequestBody UserWords userWords){
         ResponseJson responseJson = new ResponseJson();
         String createTime= dateUtil.currentDate();
-        //新增单词，默认level=0 ,nextTime为30分钟后
-        String nextTime=dateUtil.DateMoveSeconds(Level.ONE.delaySecond);
+        //新增单词，默认level=1 ,nextTime为30分钟后
+        String nextTime=LEVEL.getNextTime(1);
         int count = userWordsMapper.insert(openId,userWords.getWord(), userWords.getDefining(),nextTime,createTime,userWords.getImgPath());
         if(count==1){
             responseJson.setStatus(200);

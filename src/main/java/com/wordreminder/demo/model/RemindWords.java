@@ -6,11 +6,13 @@ import lombok.Data;
 @Data
 public class RemindWords {
     private int id;
-    private int userId;
+    private String userId;
     private int wordId;
     private String word;
     private String defining;
+    private String imgPath;
     private int testTimes;
+    private int level;
     private int rightTimes;
     //该单词当日状态，0：未测试，1:已测试未通过 2：测试通过
     private int status;

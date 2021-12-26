@@ -7,12 +7,17 @@
         SELECT * FROM RemindWords WHERE id = #{id}
     </select>
 
-    <select id="findByuserId" resultType="com.wordreminder.demo.model.RemindWords">
+    <select id="getPending" resultType="com.wordreminder.demo.model.RemindWords">
         SELECT * FROM RemindWords WHERE userId = #{userId}
     </select>
 
+
+    <select id="getReviewFinshed" resultType="com.wordreminder.demo.model.RemindWords">
+        SELECT * FROM RemindWords WHERE status=2
+    </select>
+
     <insert id="insert">
-        INSERT INTO RemindWords(userId,wordId,word,defining,testTimes,rightTimes,status) VALUES(#{userId},#{wordId},#{word},#{defining},0,0,0)
+        INSERT INTO RemindWords(userId,wordId,testTimes,rightTimes,status,word,defining,imgPath,level) VALUES(#{userId},#{wordId},0,0,0,#{word},#{defining},#{imgPath},#{level})
     </insert>
 
     <select id="countPending" resultType="java.lang.Integer">
@@ -25,6 +30,12 @@
     <delete id="delete" >
         delete from RemindWords where id = #{id};
     </delete>
+
+    <update id="updateReviewList" >
+        update RemindWords set status=2 where userId=#{userId}
+    </update>
+
+
 
 
 
