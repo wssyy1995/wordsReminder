@@ -10,6 +10,7 @@ import com.wordreminder.demo.service.FileService;
 import com.wordreminder.demo.util.SignUtil;
 import com.wordreminder.demo.util.dateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -43,6 +44,7 @@ public class wxController {
 
     @Autowired
     private FileService fileService;
+
 
     @GetMapping("/login/{temCode}")
     public ResponseJson auth(@PathVariable String temCode){
@@ -148,6 +150,8 @@ public class wxController {
         return responseJson;
 
     }
+
+
 
 
 

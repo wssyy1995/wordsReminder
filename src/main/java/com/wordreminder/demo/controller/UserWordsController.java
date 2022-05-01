@@ -78,14 +78,7 @@ public class UserWordsController {
     }
 
     @PostMapping("/list")
-    public Result list(@Valid @RequestBody ListReq listReq, BindingResult bindingResult,@RequestHeader("openId") String openId){
-        if (bindingResult.hasErrors()) {
-            for (ObjectError object : bindingResult.getAllErrors()) {
-                System.out.println(object.getDefaultMessage());
-            }
-            return ResultUtil.fail(bindingResult.getAllErrors().toString());
-
-        }
+    public Result list(@Valid @RequestBody ListReq listReq,@RequestHeader("openId") String openId){
         //select limit x,y : 从第x条记录开始，查询y行
         List<UserWords> userwordslist= userWordsMapper.selectAll((listReq.getPageNo()-1)* listReq.getPageSize(), listReq.getPageSize(),openId);
         return ResultUtil.success(userwordslist);
